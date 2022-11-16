@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 // import Pet from "./components/Pet";
 import SearchParams from "./SearchParams";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Details from "./Details";
 
 // Non JSX
 // const App = () => {
@@ -28,14 +30,15 @@ import SearchParams from "./SearchParams";
 // JSX
 const App = () => {
   return (
-    <div id="my-app">
-      <h1>Adopt me</h1>
-      {/* <Pet name="Luna" animal="Dog" breed="Havanese" />
-      <Pet name="Boyo" animal="Dog" breed="Border Collie" />
-      <Pet name="Bitch" animal="Cat" breed="Siamese" /> */}
-
-      <SearchParams></SearchParams>
-    </div>
+    <BrowserRouter>
+      <header>
+        <Link to="/">Adopt Me!</Link>
+      </header>
+      <Routes>
+        <Route path="/details/:id" element={<Details />}></Route>
+        <Route path="/" element={<SearchParams />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 

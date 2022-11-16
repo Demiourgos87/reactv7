@@ -6,15 +6,15 @@ export default function Results({ pets }) {
       {!pets.length ? (
         <h1>No Pets Found</h1>
       ) : (
-        pets.map((pet) => (
+        pets.map(({ name, animal, breed, id, images, city, state }) => (
           <Pet
-            name={pet.name}
-            animal={pet.animal}
-            breed={pet.breed}
-            key={pet.id}
-            images={pet.images}
-            location={`${pet.city}, ${pet.state}`}
-            id={pet.id}
+            name={name}
+            animal={animal}
+            breed={breed}
+            key={id}
+            images={images}
+            location={`${city}, ${state}`}
+            id={id}
           />
         ))
       )}

@@ -1,6 +1,8 @@
-import { Component } from "react"; // For writing Class components
+import { Component, useContext } from "react"; // For writing Class components
 import { useParams } from "react-router-dom";
 import Carousel from "./components/Carousel";
+import ErrorBoundary from "./ErrorBoundary";
+import ThemeContext from "./ThemeContext";
 
 // Function component
 // const Details = () => {
@@ -50,6 +52,8 @@ class Details extends Component {
       return <h2>Loading ...</h2>;
     }
 
+    // throw new Error("you crashed, you suck");
+
     const { animal, breed, city, state, description, name, images } =
       this.state;
 
@@ -61,7 +65,13 @@ class Details extends Component {
           <h2>
             {animal} - {breed} - {city}, {state}
           </h2>
-          <button>Adopt {name}</button>
+          {/* Read context from a class component */}
+          <ThemeContext.Consumer>
+            {([theme]) => (
+              <button style={{ backgroundColor: theme }}>Adopt {name}</button>
+            )}
+          </ThemeContext.Consumer>
+          {/* <button style={{ backgroundColor: theme }}>Adopt {name}</button> */}
           <p>{description}</p>
         </div>
       </div>
@@ -72,7 +82,15 @@ class Details extends Component {
 // In order to use Reacts hooks, such as useParams(), when using Class component, it must be wrapped in another component and exported that way
 const WrappedDetails = () => {
   const params = useParams();
-  return <Details params={params} />;
+  // Hooks way to pass in context
+  // const [theme] = useContext(ThemeContext)
+  return (
+    <ErrorBoundary>
+      <Details params={params} />;
+      {/* <Details params={params} theme={theme} />; */}
+      {/* Hooks way to pass in context */}
+    </ErrorBoundary>
+  );
 };
 
 export default WrappedDetails;

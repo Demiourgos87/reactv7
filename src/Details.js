@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Carousel from "./components/Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import ThemeContext from "./ThemeContext";
+import Modal from "./components/Modal";
 
 // Function component
 // const Details = () => {
@@ -25,6 +26,7 @@ class Details extends Component {
   // With babel-class-properties plugin
   state = {
     loading: false,
+    showModal: false,
   };
 
   // Essentially the same as useEffect() in Function component
@@ -45,6 +47,8 @@ class Details extends Component {
     // this.setState(json.pets[0])
   }
 
+  toggleModal = () => this.setState({ showModal: !this.state.showModal });
+
   // Class component must have a render function
   // Class components cannot use hooks!
   render() {
@@ -54,7 +58,7 @@ class Details extends Component {
 
     // throw new Error("you crashed, you suck");
 
-    const { animal, breed, city, state, description, name, images } =
+    const { animal, breed, city, state, description, name, images, showModal } =
       this.state;
 
     return (
@@ -68,11 +72,27 @@ class Details extends Component {
           {/* Read context from a class component */}
           <ThemeContext.Consumer>
             {([theme]) => (
-              <button style={{ backgroundColor: theme }}>Adopt {name}</button>
+              <button
+                onClick={this.toggleModal}
+                style={{ backgroundColor: theme }}
+              >
+                Adopt {name}
+              </button>
             )}
           </ThemeContext.Consumer>
           {/* <button style={{ backgroundColor: theme }}>Adopt {name}</button> */}
           <p>{description}</p>
+          {showModal ? (
+            <Modal>
+              <div>
+                <h1>Would you like to adpot {name}?</h1>
+                <div className="buttons">
+                  <a href="https://bit.ly/pet-adopt">Yes</a>
+                  <button onClick={this.toggleModal}>No</button>
+                </div>
+              </div>
+            </Modal>
+          ) : null}
         </div>
       </div>
     );

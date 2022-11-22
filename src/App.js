@@ -1,5 +1,5 @@
 // import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { StrictMode, useState } from "react";
 import ThemeContext from "./ThemeContext";
@@ -53,4 +53,4 @@ const App = () => {
 // ReactDOM.render(React.createElement(App), document.getElementById("root"));
 
 // JSX
-ReactDOM.render(<App />, document.getElementById("root"));
+render(<App />, document.getElementById("root"));

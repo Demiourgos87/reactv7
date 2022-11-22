@@ -4,6 +4,7 @@ import Results from "./components/Results";
 import ThemeContext from "./ThemeContext";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
+const themeColors = ["red", "darkblue", "black", "darkgreen"];
 
 const SearchParams = () => {
   // const location = "Belgrade, Serbia";
@@ -12,7 +13,7 @@ const SearchParams = () => {
   const [breed, setBreed] = useState("");
   const [pets, setPets] = useState([]);
   const [breeds] = useBreedList(animal);
-  const [theme] = useContext(ThemeContext);
+  const [theme, setTheme] = useContext(ThemeContext);
 
   useEffect(() => {
     requestPets();
@@ -88,6 +89,21 @@ const SearchParams = () => {
             {breeds.map((breed) => (
               <option key={breed} value={breed}>
                 {breed}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label htmlFor="theme">
+          Theme
+          <select
+            value={theme}
+            onChange={(e) => setTheme(e.target.value)}
+            onBlur={(e) => setTheme(e.target.value)}
+          >
+            {themeColors.map((color) => (
+              <option value={color} key={color}>
+                {color}
               </option>
             ))}
           </select>
